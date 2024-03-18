@@ -1,0 +1,15 @@
+{
+  "name": "@paradoxum-games/ceiveimgizmo",
+  "version": "3.4.1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paradoxum-games/ceiveimgizmo.git"
+  },
+  "contributors": [
+    "JakeyWasTaken"
+  ],
+  "bugs": {
+    "url": "https://github.com/paradoxum-games/ceiveimgizmo/issues"
+  }
+}
