@@ -203,6 +203,16 @@ type ISphere = {
 	},
 }
 
+type IText = {
+	Draw: (self: IText, Origin: Vector3, Text: string, Size: number?) -> (),
+	Create: (
+		self: IText,
+		Origin: Vector3,
+		Text: string,
+		Size: number?
+	) -> { Origin: Vector3, Text: string, Size: number?, Color3: Color3, AlwaysOnTop: boolean, Transparency: number },
+}
+
 type ICylinder = {
 	Draw: (self: ICylinder, Transform: CFrame, Radius: number, Length: number, Subdivisions: number) -> (),
 	Create: (
@@ -316,7 +326,15 @@ type ILine = {
 		self: ILine,
 		Transform: CFrame,
 		Length: number
-	) -> { Transform: CFrame, Length: number, Color3: Color3, AlwaysOnTop: boolean, Transparency: number, Enabled: boolean, Destroy: boolean },
+	) -> {
+		Transform: CFrame,
+		Length: number,
+		Color3: Color3,
+		AlwaysOnTop: boolean,
+		Transparency: number,
+		Enabled: boolean,
+		Destroy: boolean,
+	},
 }
 
 type IVolumeCone = {
@@ -344,7 +362,15 @@ type IVolumeBox = {
 		self: IVolumeBox,
 		Transform: CFrame,
 		Size: Vector3
-	) -> { Transform: CFrame, Size: Vector3, Color3: Color3, AlwaysOnTop: boolean, Transparency: number, Enabled: boolean, Destroy: boolean },
+	) -> {
+		Transform: CFrame,
+		Size: Vector3,
+		Color3: Color3,
+		AlwaysOnTop: boolean,
+		Transparency: number,
+		Enabled: boolean,
+		Destroy: boolean,
+	},
 }
 
 type IVolumeSphere = {
@@ -353,11 +379,26 @@ type IVolumeSphere = {
 		self: IVolumeSphere,
 		Transform: CFrame,
 		Radius: number
-	) -> { Transform: CFrame, Radius: number, Color3: Color3, AlwaysOnTop: boolean, Transparency: number, Enabled: boolean, Destroy: boolean },
+	) -> {
+		Transform: CFrame,
+		Radius: number,
+		Color3: Color3,
+		AlwaysOnTop: boolean,
+		Transparency: number,
+		Enabled: boolean,
+		Destroy: boolean,
+	},
 }
 
 type IVolumeCylinder = {
-	Draw: (self: IVolumeCylinder, Transform: CFrame, Radius: number, Length: number, InnerRadius: number?, Angle: number?) -> (),
+	Draw: (
+		self: IVolumeCylinder,
+		Transform: CFrame,
+		Radius: number,
+		Length: number,
+		InnerRadius: number?,
+		Angle: number?
+	) -> (),
 	Create: (
 		self: IVolumeCylinder,
 		Transform: CFrame,
@@ -380,7 +421,15 @@ type IVolumeCylinder = {
 }
 
 type IVolumeArrow = {
-	Draw: (self: IVolumeArrow, Origin: Vector3, End: Vector3, CylinderRadius: number, ConeRadius: number, Length: number, UseCylinder: boolean?) -> (),
+	Draw: (
+		self: IVolumeArrow,
+		Origin: Vector3,
+		End: Vector3,
+		CylinderRadius: number,
+		ConeRadius: number,
+		Length: number,
+		UseCylinder: boolean?
+	) -> (),
 	Create: (
 		self: IVolumeArrow,
 		Origin: Vector3,
@@ -437,6 +486,7 @@ type ICeive = {
 	Wedge: IWedge,
 	Circle: ICircle,
 	Sphere: ISphere,
+	Text: IText,
 	Cylinder: ICylinder,
 	Capsule: ICapsule,
 	Cone: ICone,
@@ -615,7 +665,7 @@ end
 --- @function Init
 function Ceive.Init()
 	RunService.RenderStepped:Connect(function(dt)
-    	if Ceive.Enabled then
+		if Ceive.Enabled then
 			-- Add our gizmos if they were removed for whatever reasons
 			if not TargetParent:FindFirstChild("AOTGizmoAdornment") then
 				AOTWireframeHandle = Instance.new("WireframeHandleAdornment")
@@ -661,7 +711,8 @@ function Ceive.Init()
 					continue
 				end
 
-				local TweenAlpha = TweenService:GetValue(Alpha, Tween.TweenInfo.EasingStyle, Tween.TweenInfo.EasingDirection)
+				local TweenAlpha =
+					TweenService:GetValue(Alpha, Tween.TweenInfo.EasingStyle, Tween.TweenInfo.EasingDirection)
 				local PropertyValue = LerpProperty(v, Tween.Goal[k], TweenAlpha)
 
 				Tween.p_Properties[k] = PropertyValue
